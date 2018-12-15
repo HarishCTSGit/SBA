@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FSDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Parent_Task_Table">
+    <Key>
+      <PropertyRef Name="Parent_ID" />
+    </Key>
+    <Property Name="Parent_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Parent_Task_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Task_Table">
+    <Key>
+      <PropertyRef Name="Task_ID" />
+    </Key>
+    <Property Name="Task_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Parent_ID" Type="Int32" />
+    <Property Name="Task_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Start_Date" Type="DateTime" Precision="3" />
+    <Property Name="End_Date" Type="DateTime" Precision="3" />
+    <Property Name="Priority" Type="Int32" />
+    <Property Name="IsEnded" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="FSDEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Parent_Task_Table" EntityType="Self.Parent_Task_Table" />
+    <EntitySet Name="Task_Table" EntityType="Self.Task_Table" />
+    <FunctionImport Name="AddTaskDetails">
+      <Parameter Name="taskname" Mode="In" Type="String" />
+      <Parameter Name="parenttaskname" Mode="In" Type="String" />
+      <Parameter Name="startdate" Mode="In" Type="DateTime" />
+      <Parameter Name="Enddate" Mode="In" Type="DateTime" />
+      <Parameter Name="priority" Mode="In" Type="Int32" />
+      <Parameter Name="isended" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="EndTask">
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetTaskDetails" ReturnType="Collection(FSDModel.GetTaskDetails_Result)" />
+    <FunctionImport Name="UpdateTaskDetails">
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
+      <Parameter Name="taskname" Mode="In" Type="String" />
+      <Parameter Name="parenttaskname" Mode="In" Type="String" />
+      <Parameter Name="startdate" Mode="In" Type="DateTime" />
+      <Parameter Name="Enddate" Mode="In" Type="DateTime" />
+      <Parameter Name="priority" Mode="In" Type="Int32" />
+      <Parameter Name="isended" Mode="In" Type="Boolean" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetTaskDetails_Result">
+    <Property Type="Int32" Name="TaskID" Nullable="false" />
+    <Property Type="String" Name="TaskName" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ParentTaskName" Nullable="true" MaxLength="500" />
+    <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Priority" Nullable="true" />
+    <Property Type="Boolean" Name="IsEnded" Nullable="true" />
+  </ComplexType>
+</Schema>

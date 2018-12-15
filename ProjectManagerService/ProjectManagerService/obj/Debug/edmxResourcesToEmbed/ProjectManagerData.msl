@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FSD_SBAModelStoreContainer" CdmEntityContainer="FSD_SBAEntities">
+    <EntitySetMapping Name="Parent_Task_Table">
+      <EntityTypeMapping TypeName="FSD_SBAModel.Parent_Task_Table">
+        <MappingFragment StoreEntitySet="Parent_Task_Table">
+          <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+          <ScalarProperty Name="Parent_Task_Name" ColumnName="Parent_Task_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Project_Table">
+      <EntityTypeMapping TypeName="FSD_SBAModel.Project_Table">
+        <MappingFragment StoreEntitySet="Project_Table">
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Task_Table">
+      <EntityTypeMapping TypeName="FSD_SBAModel.Task_Table">
+        <MappingFragment StoreEntitySet="Task_Table">
+          <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+          <ScalarProperty Name="Task_Name" ColumnName="Task_Name" />
+          <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users_Table">
+      <EntityTypeMapping TypeName="FSD_SBAModel.Users_Table">
+        <MappingFragment StoreEntitySet="Users_Table">
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+          <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddParentTaskDetails" FunctionName="FSD_SBAModel.Store.AddParentTaskDetails" />
+    <FunctionImportMapping FunctionImportName="AddProjectDetails" FunctionName="FSD_SBAModel.Store.AddProjectDetails" />
+    <FunctionImportMapping FunctionImportName="AddTaskDetails" FunctionName="FSD_SBAModel.Store.AddTaskDetails" />
+    <FunctionImportMapping FunctionImportName="AddUserDetails" FunctionName="FSD_SBAModel.Store.AddUserDetails" />
+    <FunctionImportMapping FunctionImportName="EndTask" FunctionName="FSD_SBAModel.Store.EndTask" />
+    <FunctionImportMapping FunctionImportName="GetProjectDetails" FunctionName="FSD_SBAModel.Store.GetProjectDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FSD_SBAModel.GetProjectDetails_Result">
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="CountOfTasks" ColumnName="CountOfTasks" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Manager" ColumnName="Manager" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProjectDetailsByProjectName" FunctionName="FSD_SBAModel.Store.GetProjectDetailsByProjectName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FSD_SBAModel.GetProjectDetailsByProjectName_Result">
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="CountOfTasks" ColumnName="CountOfTasks" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Manager" ColumnName="Manager" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetTaskDetails" FunctionName="FSD_SBAModel.Store.GetTaskDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FSD_SBAModel.GetTaskDetails_Result">
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+          <ScalarProperty Name="ParentTaskName" ColumnName="ParentTaskName" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetTaskDetailsByProjectName" FunctionName="FSD_SBAModel.Store.GetTaskDetailsByProjectName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FSD_SBAModel.GetTaskDetailsByProjectName_Result">
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+          <ScalarProperty Name="ParentTaskName" ColumnName="ParentTaskName" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUserDetails" FunctionName="FSD_SBAModel.Store.GetUserDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FSD_SBAModel.GetUserDetails_Result">
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+          <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUserDetailsByUserName" FunctionName="FSD_SBAModel.Store.GetUserDetailsByUserName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FSD_SBAModel.GetUserDetailsByUserName_Result">
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+          <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UpdateProjectDetails" FunctionName="FSD_SBAModel.Store.UpdateProjectDetails" />
+    <FunctionImportMapping FunctionImportName="UpdateTaskDetails" FunctionName="FSD_SBAModel.Store.UpdateTaskDetails" />
+    <FunctionImportMapping FunctionImportName="UpdateUserDetails" FunctionName="FSD_SBAModel.Store.UpdateUserDetails" />
+    <FunctionImportMapping FunctionImportName="DeleteProject" FunctionName="FSD_SBAModel.Store.DeleteProject" />
+    <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="FSD_SBAModel.Store.DeleteUser" />
+  </EntityContainerMapping>
+</Mapping>

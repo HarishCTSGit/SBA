@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FSDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'FSD.dbo.Parent_Task_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Parent_Task_Table">
+    <Key>
+      <PropertyRef Name="Parent_ID" />
+    </Key>
+    <Property Name="Parent_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Parent_Task_Name" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'FSD.dbo.Task_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Task_Table">
+    <Key>
+      <PropertyRef Name="Task_ID" />
+    </Key>
+    <Property Name="Task_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Parent_ID" Type="int" />
+    <Property Name="Task_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Start_Date" Type="datetime" />
+    <Property Name="End_Date" Type="datetime" />
+    <Property Name="Priority" Type="int" />
+    <Property Name="IsEnded" Type="bit" />
+  </EntityType>
+  <Function Name="AddTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="taskname" Type="varchar" Mode="In" />
+    <Parameter Name="parenttaskname" Type="varchar" Mode="In" />
+    <Parameter Name="startdate" Type="datetime" Mode="In" />
+    <Parameter Name="Enddate" Type="datetime" Mode="In" />
+    <Parameter Name="priority" Type="int" Mode="In" />
+    <Parameter Name="isended" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="EndTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="taskid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="UpdateTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="taskid" Type="int" Mode="In" />
+    <Parameter Name="taskname" Type="varchar" Mode="In" />
+    <Parameter Name="parenttaskname" Type="varchar" Mode="In" />
+    <Parameter Name="startdate" Type="datetime" Mode="In" />
+    <Parameter Name="Enddate" Type="datetime" Mode="In" />
+    <Parameter Name="priority" Type="int" Mode="In" />
+    <Parameter Name="isended" Type="bit" Mode="In" />
+  </Function>
+  <EntityContainer Name="FSDModelStoreContainer">
+    <EntitySet Name="Parent_Task_Table" EntityType="Self.Parent_Task_Table" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Parent_Task_Table].[Parent_ID] AS [Parent_ID], 
+    [Parent_Task_Table].[Parent_Task_Name] AS [Parent_Task_Name]
+    FROM [dbo].[Parent_Task_Table] AS [Parent_Task_Table]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Task_Table" EntityType="Self.Task_Table" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Task_Table].[Task_ID] AS [Task_ID], 
+    [Task_Table].[Parent_ID] AS [Parent_ID], 
+    [Task_Table].[Task_Name] AS [Task_Name], 
+    [Task_Table].[Start_Date] AS [Start_Date], 
+    [Task_Table].[End_Date] AS [End_Date], 
+    [Task_Table].[Priority] AS [Priority], 
+    [Task_Table].[IsEnded] AS [IsEnded]
+    FROM [dbo].[Task_Table] AS [Task_Table]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

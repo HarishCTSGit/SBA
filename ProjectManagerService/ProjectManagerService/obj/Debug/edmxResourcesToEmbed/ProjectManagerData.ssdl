@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FSD_SBAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'FSD_SBA.dbo.Parent_Task_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Parent_Task_Table">
+    <Key>
+      <PropertyRef Name="Parent_ID" />
+    </Key>
+    <Property Name="Parent_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Parent_Task_Name" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'FSD_SBA.dbo.Project_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Project_Table">
+    <Key>
+      <PropertyRef Name="Project_ID" />
+    </Key>
+    <Property Name="Project_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Start_Date" Type="datetime" />
+    <Property Name="End_Date" Type="datetime" />
+    <Property Name="Priority" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'FSD_SBA.dbo.Task_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Task_Table">
+    <Key>
+      <PropertyRef Name="Task_ID" />
+    </Key>
+    <Property Name="Task_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Task_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Parent_ID" Type="int" />
+    <Property Name="Project_ID" Type="int" />
+    <Property Name="Start_Date" Type="datetime" />
+    <Property Name="End_Date" Type="datetime" />
+    <Property Name="Priority" Type="int" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'FSD_SBA.dbo.Users_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Users_Table">
+    <Key>
+      <PropertyRef Name="USER_ID" />
+    </Key>
+    <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="First_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Last_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Employee_ID" Type="int" />
+    <Property Name="Project_ID" Type="int" />
+    <Property Name="Task_ID" Type="int" />
+  </EntityType>
+  <Function Name="AddParentTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="parentTaskName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="AddProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projectName" Type="varchar" Mode="In" />
+    <Parameter Name="startdate" Type="datetime" Mode="In" />
+    <Parameter Name="enddate" Type="datetime" Mode="In" />
+    <Parameter Name="priority" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="AddTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projectName" Type="varchar" Mode="In" />
+    <Parameter Name="taskname" Type="varchar" Mode="In" />
+    <Parameter Name="parenttaskname" Type="varchar" Mode="In" />
+    <Parameter Name="startdate" Type="datetime" Mode="In" />
+    <Parameter Name="Enddate" Type="datetime" Mode="In" />
+    <Parameter Name="priority" Type="int" Mode="In" />
+    <Parameter Name="userid" Type="int" Mode="In" />
+    <Parameter Name="isended" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="AddUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="firstName" Type="varchar" Mode="In" />
+    <Parameter Name="lastName" Type="varchar" Mode="In" />
+    <Parameter Name="employeeID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projectID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EndTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="taskid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetProjectDetailsByProjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projectName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="GetTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetTaskDetailsByProjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projectName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="GetUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetUserDetailsByUserName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserNameOrEmployeeID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="UpdateProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projectID" Type="int" Mode="In" />
+    <Parameter Name="projectName" Type="varchar" Mode="In" />
+    <Parameter Name="startdate" Type="datetime" Mode="In" />
+    <Parameter Name="enddate" Type="datetime" Mode="In" />
+    <Parameter Name="priority" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="UpdateTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projectName" Type="varchar" Mode="In" />
+    <Parameter Name="taskid" Type="int" Mode="In" />
+    <Parameter Name="taskname" Type="varchar" Mode="In" />
+    <Parameter Name="parenttaskname" Type="varchar" Mode="In" />
+    <Parameter Name="startdate" Type="datetime" Mode="In" />
+    <Parameter Name="Enddate" Type="datetime" Mode="In" />
+    <Parameter Name="priority" Type="int" Mode="In" />
+    <Parameter Name="userid" Type="int" Mode="In" />
+    <Parameter Name="isended" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="UpdateUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userid" Type="int" Mode="In" />
+    <Parameter Name="firstName" Type="varchar" Mode="In" />
+    <Parameter Name="lastName" Type="varchar" Mode="In" />
+    <Parameter Name="employeeID" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="FSD_SBAModelStoreContainer">
+    <EntitySet Name="Parent_Task_Table" EntityType="Self.Parent_Task_Table" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Parent_Task_Table].[Parent_ID] AS [Parent_ID], 
+    [Parent_Task_Table].[Parent_Task_Name] AS [Parent_Task_Name]
+    FROM [dbo].[Parent_Task_Table] AS [Parent_Task_Table]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Project_Table" EntityType="Self.Project_Table" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Project_Table].[Project_ID] AS [Project_ID], 
+    [Project_Table].[Project_Name] AS [Project_Name], 
+    [Project_Table].[Start_Date] AS [Start_Date], 
+    [Project_Table].[End_Date] AS [End_Date], 
+    [Project_Table].[Priority] AS [Priority]
+    FROM [dbo].[Project_Table] AS [Project_Table]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Task_Table" EntityType="Self.Task_Table" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Task_Table].[Task_ID] AS [Task_ID], 
+    [Task_Table].[Task_Name] AS [Task_Name], 
+    [Task_Table].[Parent_ID] AS [Parent_ID], 
+    [Task_Table].[Project_ID] AS [Project_ID], 
+    [Task_Table].[Start_Date] AS [Start_Date], 
+    [Task_Table].[End_Date] AS [End_Date], 
+    [Task_Table].[Priority] AS [Priority], 
+    [Task_Table].[Status] AS [Status]
+    FROM [dbo].[Task_Table] AS [Task_Table]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Users_Table" EntityType="Self.Users_Table" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Users_Table].[USER_ID] AS [USER_ID], 
+    [Users_Table].[First_Name] AS [First_Name], 
+    [Users_Table].[Last_Name] AS [Last_Name], 
+    [Users_Table].[Employee_ID] AS [Employee_ID], 
+    [Users_Table].[Project_ID] AS [Project_ID], 
+    [Users_Table].[Task_ID] AS [Task_ID]
+    FROM [dbo].[Users_Table] AS [Users_Table]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

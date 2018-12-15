@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FSD_SBAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FSD_SBA.dbo.Parent_Task_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Parent_Task_Table">
+          <Key>
+            <PropertyRef Name="Parent_ID" />
+          </Key>
+          <Property Name="Parent_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Parent_Task_Name" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FSD_SBA.dbo.Project_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Project_Table">
+          <Key>
+            <PropertyRef Name="Project_ID" />
+          </Key>
+          <Property Name="Project_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Project_Name" Type="varchar" MaxLength="500" />
+          <Property Name="Start_Date" Type="datetime" />
+          <Property Name="End_Date" Type="datetime" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FSD_SBA.dbo.Task_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Task_Table">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Task_Name" Type="varchar" MaxLength="500" />
+          <Property Name="Parent_ID" Type="int" />
+          <Property Name="Project_ID" Type="int" />
+          <Property Name="Start_Date" Type="datetime" />
+          <Property Name="End_Date" Type="datetime" />
+          <Property Name="Priority" Type="int" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FSD_SBA.dbo.Users_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Users_Table">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First_Name" Type="varchar" MaxLength="500" />
+          <Property Name="Last_Name" Type="varchar" MaxLength="500" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Project_ID" Type="int" />
+          <Property Name="Task_ID" Type="int" />
+        </EntityType>
+        <Function Name="AddParentTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parentTaskName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="AddProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectName" Type="varchar" Mode="In" />
+          <Parameter Name="startdate" Type="datetime" Mode="In" />
+          <Parameter Name="enddate" Type="datetime" Mode="In" />
+          <Parameter Name="priority" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AddTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectName" Type="varchar" Mode="In" />
+          <Parameter Name="taskname" Type="varchar" Mode="In" />
+          <Parameter Name="parenttaskname" Type="varchar" Mode="In" />
+          <Parameter Name="startdate" Type="datetime" Mode="In" />
+          <Parameter Name="Enddate" Type="datetime" Mode="In" />
+          <Parameter Name="priority" Type="int" Mode="In" />
+          <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="isended" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="AddUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="employeeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EndTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="taskid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetProjectDetailsByProjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetTaskDetailsByProjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetUserDetailsByUserName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserNameOrEmployeeID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateProjectDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectID" Type="int" Mode="In" />
+          <Parameter Name="projectName" Type="varchar" Mode="In" />
+          <Parameter Name="startdate" Type="datetime" Mode="In" />
+          <Parameter Name="enddate" Type="datetime" Mode="In" />
+          <Parameter Name="priority" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateTaskDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectName" Type="varchar" Mode="In" />
+          <Parameter Name="taskid" Type="int" Mode="In" />
+          <Parameter Name="taskname" Type="varchar" Mode="In" />
+          <Parameter Name="parenttaskname" Type="varchar" Mode="In" />
+          <Parameter Name="startdate" Type="datetime" Mode="In" />
+          <Parameter Name="Enddate" Type="datetime" Mode="In" />
+          <Parameter Name="priority" Type="int" Mode="In" />
+          <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="isended" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="UpdateUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="employeeID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="FSD_SBAModelStoreContainer">
+          <EntitySet Name="Parent_Task_Table" EntityType="Self.Parent_Task_Table" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Parent_Task_Table].[Parent_ID] AS [Parent_ID], 
+    [Parent_Task_Table].[Parent_Task_Name] AS [Parent_Task_Name]
+    FROM [dbo].[Parent_Task_Table] AS [Parent_Task_Table]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Project_Table" EntityType="Self.Project_Table" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Project_Table].[Project_ID] AS [Project_ID], 
+    [Project_Table].[Project_Name] AS [Project_Name], 
+    [Project_Table].[Start_Date] AS [Start_Date], 
+    [Project_Table].[End_Date] AS [End_Date], 
+    [Project_Table].[Priority] AS [Priority]
+    FROM [dbo].[Project_Table] AS [Project_Table]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Task_Table" EntityType="Self.Task_Table" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Task_Table].[Task_ID] AS [Task_ID], 
+    [Task_Table].[Task_Name] AS [Task_Name], 
+    [Task_Table].[Parent_ID] AS [Parent_ID], 
+    [Task_Table].[Project_ID] AS [Project_ID], 
+    [Task_Table].[Start_Date] AS [Start_Date], 
+    [Task_Table].[End_Date] AS [End_Date], 
+    [Task_Table].[Priority] AS [Priority], 
+    [Task_Table].[Status] AS [Status]
+    FROM [dbo].[Task_Table] AS [Task_Table]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Users_Table" EntityType="Self.Users_Table" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Users_Table].[USER_ID] AS [USER_ID], 
+    [Users_Table].[First_Name] AS [First_Name], 
+    [Users_Table].[Last_Name] AS [Last_Name], 
+    [Users_Table].[Employee_ID] AS [Employee_ID], 
+    [Users_Table].[Project_ID] AS [Project_ID], 
+    [Users_Table].[Task_ID] AS [Task_ID]
+    FROM [dbo].[Users_Table] AS [Users_Table]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FSD_SBAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Parent_Task_Table">
+          <Key>
+            <PropertyRef Name="Parent_ID" />
+          </Key>
+          <Property Name="Parent_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Parent_Task_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Project_Table">
+          <Key>
+            <PropertyRef Name="Project_ID" />
+          </Key>
+          <Property Name="Project_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Project_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Date" Type="DateTime" Precision="3" />
+          <Property Name="End_Date" Type="DateTime" Precision="3" />
+          <Property Name="Priority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Task_Table">
+          <Key>
+            <PropertyRef Name="Task_ID" />
+          </Key>
+          <Property Name="Task_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Task_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Parent_ID" Type="Int32" />
+          <Property Name="Project_ID" Type="Int32" />
+          <Property Name="Start_Date" Type="DateTime" Precision="3" />
+          <Property Name="End_Date" Type="DateTime" Precision="3" />
+          <Property Name="Priority" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Users_Table">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Last_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Project_ID" Type="Int32" />
+          <Property Name="Task_ID" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="FSD_SBAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Parent_Task_Table" EntityType="Self.Parent_Task_Table" />
+          <EntitySet Name="Project_Table" EntityType="Self.Project_Table" />
+          <EntitySet Name="Task_Table" EntityType="Self.Task_Table" />
+          <EntitySet Name="Users_Table" EntityType="Self.Users_Table" />
+          <FunctionImport Name="AddParentTaskDetails">
+          <Parameter Name="parentTaskName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddProjectDetails">
+            <Parameter Name="projectName" Mode="In" Type="String" />
+            <Parameter Name="startdate" Mode="In" Type="DateTime" />
+            <Parameter Name="enddate" Mode="In" Type="DateTime" />
+            <Parameter Name="priority" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddTaskDetails">
+            <Parameter Name="projectName" Mode="In" Type="String" />
+            <Parameter Name="taskname" Mode="In" Type="String" />
+            <Parameter Name="parenttaskname" Mode="In" Type="String" />
+            <Parameter Name="startdate" Mode="In" Type="DateTime" />
+            <Parameter Name="Enddate" Mode="In" Type="DateTime" />
+            <Parameter Name="priority" Mode="In" Type="Int32" />
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="isended" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="AddUserDetails">
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="employeeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EndTask">
+          <Parameter Name="taskid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProjectDetails" ReturnType="Collection(FSD_SBAModel.GetProjectDetails_Result)" />
+          <FunctionImport Name="GetProjectDetailsByProjectName" ReturnType="Collection(FSD_SBAModel.GetProjectDetailsByProjectName_Result)">
+          <Parameter Name="projectName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetTaskDetails" ReturnType="Collection(FSD_SBAModel.GetTaskDetails_Result)" />
+          <FunctionImport Name="GetTaskDetailsByProjectName" ReturnType="Collection(FSD_SBAModel.GetTaskDetailsByProjectName_Result)">
+          <Parameter Name="projectName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetUserDetails" ReturnType="Collection(FSD_SBAModel.GetUserDetails_Result)" />
+          <FunctionImport Name="GetUserDetailsByUserName" ReturnType="Collection(FSD_SBAModel.GetUserDetailsByUserName_Result)">
+          <Parameter Name="UserNameOrEmployeeID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateProjectDetails">
+            <Parameter Name="projectID" Mode="In" Type="Int32" />
+            <Parameter Name="projectName" Mode="In" Type="String" />
+            <Parameter Name="startdate" Mode="In" Type="DateTime" />
+            <Parameter Name="enddate" Mode="In" Type="DateTime" />
+            <Parameter Name="priority" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateTaskDetails">
+            <Parameter Name="projectName" Mode="In" Type="String" />
+            <Parameter Name="taskid" Mode="In" Type="Int32" />
+            <Parameter Name="taskname" Mode="In" Type="String" />
+            <Parameter Name="parenttaskname" Mode="In" Type="String" />
+            <Parameter Name="startdate" Mode="In" Type="DateTime" />
+            <Parameter Name="Enddate" Mode="In" Type="DateTime" />
+            <Parameter Name="priority" Mode="In" Type="Int32" />
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="isended" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateUserDetails">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="employeeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProject">
+            <Parameter Name="projectID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteUser">
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetProjectDetails_Result">
+          <Property Type="Int32" Name="Project_ID" Nullable="false" />
+          <Property Type="String" Name="Project_Name" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="Start_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="End_Date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Priority" Nullable="true" />
+          <Property Type="Int32" Name="CountOfTasks" Nullable="true" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+          <Property Type="String" Name="Manager" Nullable="true" MaxLength="1001" />
+        </ComplexType>
+        <ComplexType Name="GetProjectDetailsByProjectName_Result">
+          <Property Type="Int32" Name="Project_ID" Nullable="false" />
+          <Property Type="String" Name="Project_Name" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="Start_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="End_Date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Priority" Nullable="true" />
+          <Property Type="Int32" Name="CountOfTasks" Nullable="true" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+          <Property Type="String" Name="Manager" Nullable="true" MaxLength="1001" />
+        </ComplexType>
+        <ComplexType Name="GetTaskDetails_Result">
+          <Property Type="Int32" Name="TaskID" Nullable="false" />
+          <Property Type="String" Name="TaskName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ParentTaskName" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Priority" Nullable="true" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetTaskDetailsByProjectName_Result">
+          <Property Type="Int32" Name="TaskID" Nullable="false" />
+          <Property Type="String" Name="TaskName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ParentTaskName" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Priority" Nullable="true" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetUserDetails_Result">
+          <Property Type="Int32" Name="USER_ID" Nullable="false" />
+          <Property Type="String" Name="First_Name" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Employee_ID" Nullable="true" />
+          <Property Type="Int32" Name="Project_ID" Nullable="true" />
+          <Property Type="Int32" Name="Task_ID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetUserDetailsByUserName_Result">
+          <Property Type="Int32" Name="USER_ID" Nullable="false" />
+          <Property Type="String" Name="First_Name" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Employee_ID" Nullable="true" />
+          <Property Type="Int32" Name="Project_ID" Nullable="true" />
+          <Property Type="Int32" Name="Task_ID" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FSD_SBAModelStoreContainer" CdmEntityContainer="FSD_SBAEntities">
+          <EntitySetMapping Name="Parent_Task_Table">
+            <EntityTypeMapping TypeName="FSD_SBAModel.Parent_Task_Table">
+              <MappingFragment StoreEntitySet="Parent_Task_Table">
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+                <ScalarProperty Name="Parent_Task_Name" ColumnName="Parent_Task_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project_Table">
+            <EntityTypeMapping TypeName="FSD_SBAModel.Project_Table">
+              <MappingFragment StoreEntitySet="Project_Table">
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Task_Table">
+            <EntityTypeMapping TypeName="FSD_SBAModel.Task_Table">
+              <MappingFragment StoreEntitySet="Task_Table">
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+                <ScalarProperty Name="Task_Name" ColumnName="Task_Name" />
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users_Table">
+            <EntityTypeMapping TypeName="FSD_SBAModel.Users_Table">
+              <MappingFragment StoreEntitySet="Users_Table">
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddParentTaskDetails" FunctionName="FSD_SBAModel.Store.AddParentTaskDetails" />
+          <FunctionImportMapping FunctionImportName="AddProjectDetails" FunctionName="FSD_SBAModel.Store.AddProjectDetails" />
+          <FunctionImportMapping FunctionImportName="AddTaskDetails" FunctionName="FSD_SBAModel.Store.AddTaskDetails" />
+          <FunctionImportMapping FunctionImportName="AddUserDetails" FunctionName="FSD_SBAModel.Store.AddUserDetails" />
+          <FunctionImportMapping FunctionImportName="EndTask" FunctionName="FSD_SBAModel.Store.EndTask" />
+          <FunctionImportMapping FunctionImportName="GetProjectDetails" FunctionName="FSD_SBAModel.Store.GetProjectDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FSD_SBAModel.GetProjectDetails_Result">
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="CountOfTasks" ColumnName="CountOfTasks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetProjectDetailsByProjectName" FunctionName="FSD_SBAModel.Store.GetProjectDetailsByProjectName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FSD_SBAModel.GetProjectDetailsByProjectName_Result">
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="CountOfTasks" ColumnName="CountOfTasks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTaskDetails" FunctionName="FSD_SBAModel.Store.GetTaskDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FSD_SBAModel.GetTaskDetails_Result">
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="ParentTaskName" ColumnName="ParentTaskName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTaskDetailsByProjectName" FunctionName="FSD_SBAModel.Store.GetTaskDetailsByProjectName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FSD_SBAModel.GetTaskDetailsByProjectName_Result">
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="ParentTaskName" ColumnName="ParentTaskName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUserDetails" FunctionName="FSD_SBAModel.Store.GetUserDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FSD_SBAModel.GetUserDetails_Result">
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUserDetailsByUserName" FunctionName="FSD_SBAModel.Store.GetUserDetailsByUserName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FSD_SBAModel.GetUserDetailsByUserName_Result">
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateProjectDetails" FunctionName="FSD_SBAModel.Store.UpdateProjectDetails" />
+          <FunctionImportMapping FunctionImportName="UpdateTaskDetails" FunctionName="FSD_SBAModel.Store.UpdateTaskDetails" />
+          <FunctionImportMapping FunctionImportName="UpdateUserDetails" FunctionName="FSD_SBAModel.Store.UpdateUserDetails" />
+          <FunctionImportMapping FunctionImportName="DeleteProject" FunctionName="FSD_SBAModel.Store.DeleteProject" />
+          <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="FSD_SBAModel.Store.DeleteUser" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

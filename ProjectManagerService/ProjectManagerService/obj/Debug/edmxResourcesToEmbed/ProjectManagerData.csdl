@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FSD_SBAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Parent_Task_Table">
+    <Key>
+      <PropertyRef Name="Parent_ID" />
+    </Key>
+    <Property Name="Parent_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Parent_Task_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Project_Table">
+    <Key>
+      <PropertyRef Name="Project_ID" />
+    </Key>
+    <Property Name="Project_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Project_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Start_Date" Type="DateTime" Precision="3" />
+    <Property Name="End_Date" Type="DateTime" Precision="3" />
+    <Property Name="Priority" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Task_Table">
+    <Key>
+      <PropertyRef Name="Task_ID" />
+    </Key>
+    <Property Name="Task_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Task_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Parent_ID" Type="Int32" />
+    <Property Name="Project_ID" Type="Int32" />
+    <Property Name="Start_Date" Type="DateTime" Precision="3" />
+    <Property Name="End_Date" Type="DateTime" Precision="3" />
+    <Property Name="Priority" Type="Int32" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Users_Table">
+    <Key>
+      <PropertyRef Name="USER_ID" />
+    </Key>
+    <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="First_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Last_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Employee_ID" Type="Int32" />
+    <Property Name="Project_ID" Type="Int32" />
+    <Property Name="Task_ID" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="FSD_SBAEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Parent_Task_Table" EntityType="Self.Parent_Task_Table" />
+    <EntitySet Name="Project_Table" EntityType="Self.Project_Table" />
+    <EntitySet Name="Task_Table" EntityType="Self.Task_Table" />
+    <EntitySet Name="Users_Table" EntityType="Self.Users_Table" />
+    <FunctionImport Name="AddParentTaskDetails">
+      <Parameter Name="parentTaskName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddProjectDetails">
+      <Parameter Name="projectName" Mode="In" Type="String" />
+      <Parameter Name="startdate" Mode="In" Type="DateTime" />
+      <Parameter Name="enddate" Mode="In" Type="DateTime" />
+      <Parameter Name="priority" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddTaskDetails">
+      <Parameter Name="projectName" Mode="In" Type="String" />
+      <Parameter Name="taskname" Mode="In" Type="String" />
+      <Parameter Name="parenttaskname" Mode="In" Type="String" />
+      <Parameter Name="startdate" Mode="In" Type="DateTime" />
+      <Parameter Name="Enddate" Mode="In" Type="DateTime" />
+      <Parameter Name="priority" Mode="In" Type="Int32" />
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+      <Parameter Name="isended" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="AddUserDetails">
+      <Parameter Name="firstName" Mode="In" Type="String" />
+      <Parameter Name="lastName" Mode="In" Type="String" />
+      <Parameter Name="employeeID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EndTask">
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetProjectDetails" ReturnType="Collection(FSD_SBAModel.GetProjectDetails_Result)" />
+    <FunctionImport Name="GetProjectDetailsByProjectName" ReturnType="Collection(FSD_SBAModel.GetProjectDetailsByProjectName_Result)">
+      <Parameter Name="projectName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetTaskDetails" ReturnType="Collection(FSD_SBAModel.GetTaskDetails_Result)" />
+    <FunctionImport Name="GetTaskDetailsByProjectName" ReturnType="Collection(FSD_SBAModel.GetTaskDetailsByProjectName_Result)">
+      <Parameter Name="projectName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetUserDetails" ReturnType="Collection(FSD_SBAModel.GetUserDetails_Result)" />
+    <FunctionImport Name="GetUserDetailsByUserName" ReturnType="Collection(FSD_SBAModel.GetUserDetailsByUserName_Result)">
+      <Parameter Name="UserNameOrEmployeeID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateProjectDetails">
+      <Parameter Name="projectID" Mode="In" Type="Int32" />
+      <Parameter Name="projectName" Mode="In" Type="String" />
+      <Parameter Name="startdate" Mode="In" Type="DateTime" />
+      <Parameter Name="enddate" Mode="In" Type="DateTime" />
+      <Parameter Name="priority" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateTaskDetails">
+      <Parameter Name="projectName" Mode="In" Type="String" />
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
+      <Parameter Name="taskname" Mode="In" Type="String" />
+      <Parameter Name="parenttaskname" Mode="In" Type="String" />
+      <Parameter Name="startdate" Mode="In" Type="DateTime" />
+      <Parameter Name="Enddate" Mode="In" Type="DateTime" />
+      <Parameter Name="priority" Mode="In" Type="Int32" />
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+      <Parameter Name="isended" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateUserDetails">
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+      <Parameter Name="firstName" Mode="In" Type="String" />
+      <Parameter Name="lastName" Mode="In" Type="String" />
+      <Parameter Name="employeeID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteProject">
+      <Parameter Name="projectID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteUser">
+      <Parameter Name="userID" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetProjectDetails_Result">
+    <Property Type="Int32" Name="Project_ID" Nullable="false" />
+    <Property Type="String" Name="Project_Name" Nullable="true" MaxLength="500" />
+    <Property Type="DateTime" Name="Start_Date" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="End_Date" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Priority" Nullable="true" />
+    <Property Type="Int32" Name="CountOfTasks" Nullable="true" />
+    <Property Type="Boolean" Name="Status" Nullable="true" />
+    <Property Type="String" Name="Manager" Nullable="true" MaxLength="1001" />
+  </ComplexType>
+  <ComplexType Name="GetProjectDetailsByProjectName_Result">
+    <Property Type="Int32" Name="Project_ID" Nullable="false" />
+    <Property Type="String" Name="Project_Name" Nullable="true" MaxLength="500" />
+    <Property Type="DateTime" Name="Start_Date" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="End_Date" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Priority" Nullable="true" />
+    <Property Type="Int32" Name="CountOfTasks" Nullable="true" />
+    <Property Type="Boolean" Name="Status" Nullable="true" />
+    <Property Type="String" Name="Manager" Nullable="true" MaxLength="1001" />
+  </ComplexType>
+  <ComplexType Name="GetTaskDetails_Result">
+    <Property Type="Int32" Name="TaskID" Nullable="false" />
+    <Property Type="String" Name="TaskName" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ParentTaskName" Nullable="true" MaxLength="500" />
+    <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Priority" Nullable="true" />
+    <Property Type="Boolean" Name="Status" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetTaskDetailsByProjectName_Result">
+    <Property Type="Int32" Name="TaskID" Nullable="false" />
+    <Property Type="String" Name="TaskName" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ParentTaskName" Nullable="true" MaxLength="500" />
+    <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Priority" Nullable="true" />
+    <Property Type="Boolean" Name="Status" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetUserDetails_Result">
+    <Property Type="Int32" Name="USER_ID" Nullable="false" />
+    <Property Type="String" Name="First_Name" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="Employee_ID" Nullable="true" />
+    <Property Type="Int32" Name="Project_ID" Nullable="true" />
+    <Property Type="Int32" Name="Task_ID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetUserDetailsByUserName_Result">
+    <Property Type="Int32" Name="USER_ID" Nullable="false" />
+    <Property Type="String" Name="First_Name" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="Employee_ID" Nullable="true" />
+    <Property Type="Int32" Name="Project_ID" Nullable="true" />
+    <Property Type="Int32" Name="Task_ID" Nullable="true" />
+  </ComplexType>
+</Schema>

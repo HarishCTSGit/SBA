@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FSDModelStoreContainer" CdmEntityContainer="FSDEntities">
+    <EntitySetMapping Name="Parent_Task_Table">
+      <EntityTypeMapping TypeName="FSDModel.Parent_Task_Table">
+        <MappingFragment StoreEntitySet="Parent_Task_Table">
+          <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+          <ScalarProperty Name="Parent_Task_Name" ColumnName="Parent_Task_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Task_Table">
+      <EntityTypeMapping TypeName="FSDModel.Task_Table">
+        <MappingFragment StoreEntitySet="Task_Table">
+          <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+          <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+          <ScalarProperty Name="Task_Name" ColumnName="Task_Name" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="IsEnded" ColumnName="IsEnded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddTaskDetails" FunctionName="FSDModel.Store.AddTaskDetails" />
+    <FunctionImportMapping FunctionImportName="EndTask" FunctionName="FSDModel.Store.EndTask" />
+    <FunctionImportMapping FunctionImportName="GetTaskDetails" FunctionName="FSDModel.Store.GetTaskDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FSDModel.GetTaskDetails_Result">
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+          <ScalarProperty Name="ParentTaskName" ColumnName="ParentTaskName" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="IsEnded" ColumnName="IsEnded" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UpdateTaskDetails" FunctionName="FSDModel.Store.UpdateTaskDetails" />
+  </EntityContainerMapping>
+</Mapping>
