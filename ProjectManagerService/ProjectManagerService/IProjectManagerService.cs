@@ -27,7 +27,6 @@ namespace ProjectManagerService
         void AddParentTaskDetails(string ParentTaskName);
 
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/EndTaskDetails/{TaskID}", BodyStyle = WebMessageBodyStyle.Wrapped, RequestFormat = WebMessageFormat.Json)]
         string EndTaskDetails(string TaskID);
 
         [OperationContract]
